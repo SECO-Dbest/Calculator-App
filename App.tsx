@@ -4,9 +4,9 @@ import {
   Text,
   View,
   TouchableOpacity,
-  SafeAreaView,
   StatusBar,
 } from 'react-native';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
 export default function App() {
   const [displayValue, setDisplayValue] = useState('0');
@@ -86,76 +86,78 @@ export default function App() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" backgroundColor="#17181a" />
-      
-      {/* Display Screen */}
-      <View style={styles.displayContainer}>
-        <Text style={styles.displayText} numberOfLines={1} adjustsFontSizeToFit>
-          {displayValue}
-        </Text>
-      </View>
-
-      {/* Keypad */}
-      <View style={styles.keypad}>
-        {/* Row 1 */}
-        <View style={styles.row}>
-          <TouchableOpacity style={[styles.button, styles.functionButton]} onPress={clearAll}>
-            <Text style={[styles.buttonText, styles.functionButtonText]}>AC</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.functionButton]} onPress={() => setDisplayValue(String(parseFloat(displayValue) * -1))}>
-            <Text style={[styles.buttonText, styles.functionButtonText]}>+/-</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.functionButton]} onPress={() => setDisplayValue(String(parseFloat(displayValue) / 100))}>
-            <Text style={[styles.buttonText, styles.functionButtonText]}>%</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => performOperation('÷')}>
-            <Text style={[styles.buttonText, styles.operatorButtonText]}>÷</Text>
-          </TouchableOpacity>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container}>
+        <StatusBar barStyle="light-content" backgroundColor="#17181a" />
+        
+        {/* Display Screen */}
+        <View style={styles.displayContainer}>
+          <Text style={styles.displayText} numberOfLines={1} adjustsFontSizeToFit>
+            {displayValue}
+          </Text>
         </View>
 
-        {/* Row 2 */}
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.button} onPress={() => inputDigit('7')}><Text style={styles.buttonText}>7</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => inputDigit('8')}><Text style={styles.buttonText}>8</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => inputDigit('9')}><Text style={styles.buttonText}>9</Text></TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => performOperation('×')}>
-            <Text style={[styles.buttonText, styles.operatorButtonText]}>×</Text>
-          </TouchableOpacity>
-        </View>
+        {/* Keypad */}
+        <View style={styles.keypad}>
+          {/* Row 1 */}
+          <View style={styles.row}>
+            <TouchableOpacity style={[styles.button, styles.functionButton]} onPress={clearAll}>
+              <Text style={[styles.buttonText, styles.functionButtonText]}>AC</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button, styles.functionButton]} onPress={() => setDisplayValue(String(parseFloat(displayValue) * -1))}>
+              <Text style={[styles.buttonText, styles.functionButtonText]}>+/-</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button, styles.functionButton]} onPress={() => setDisplayValue(String(parseFloat(displayValue) / 100))}>
+              <Text style={[styles.buttonText, styles.functionButtonText]}>%</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => performOperation('÷')}>
+              <Text style={[styles.buttonText, styles.operatorButtonText]}>÷</Text>
+            </TouchableOpacity>
+          </View>
 
-        {/* Row 3 */}
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.button} onPress={() => inputDigit('4')}><Text style={styles.buttonText}>4</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => inputDigit('5')}><Text style={styles.buttonText}>5</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => inputDigit('6')}><Text style={styles.buttonText}>6</Text></TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => performOperation('-')}>
-            <Text style={[styles.buttonText, styles.operatorButtonText]}>-</Text>
-          </TouchableOpacity>
-        </View>
+          {/* Row 2 */}
+          <View style={styles.row}>
+            <TouchableOpacity style={styles.button} onPress={() => inputDigit('7')}><Text style={styles.buttonText}>7</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => inputDigit('8')}><Text style={styles.buttonText}>8</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => inputDigit('9')}><Text style={styles.buttonText}>9</Text></TouchableOpacity>
+            <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => performOperation('×')}>
+              <Text style={[styles.buttonText, styles.operatorButtonText]}>×</Text>
+            </TouchableOpacity>
+          </View>
 
-        {/* Row 4 */}
-        <View style={styles.row}>
-          <TouchableOpacity style={styles.button} onPress={() => inputDigit('1')}><Text style={styles.buttonText}>1</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => inputDigit('2')}><Text style={styles.buttonText}>2</Text></TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={() => inputDigit('3')}><Text style={styles.buttonText}>3</Text></TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => performOperation('+')}>
-            <Text style={[styles.buttonText, styles.operatorButtonText]}>+</Text>
-          </TouchableOpacity>
-        </View>
+          {/* Row 3 */}
+          <View style={styles.row}>
+            <TouchableOpacity style={styles.button} onPress={() => inputDigit('4')}><Text style={styles.buttonText}>4</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => inputDigit('5')}><Text style={styles.buttonText}>5</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => inputDigit('6')}><Text style={styles.buttonText}>6</Text></TouchableOpacity>
+            <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => performOperation('-')}>
+              <Text style={[styles.buttonText, styles.operatorButtonText]}>-</Text>
+            </TouchableOpacity>
+          </View>
 
-        {/* Row 5 */}
-        <View style={styles.row}>
-          <TouchableOpacity style={[styles.button, styles.zeroButton]} onPress={() => inputDigit('0')}>
-            <Text style={[styles.buttonText, styles.zeroButtonText]}>0</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button} onPress={inputDecimal}><Text style={styles.buttonText}>.</Text></TouchableOpacity>
-          <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={handleEquals}>
-            <Text style={[styles.buttonText, styles.operatorButtonText]}>=</Text>
-          </TouchableOpacity>
+          {/* Row 4 */}
+          <View style={styles.row}>
+            <TouchableOpacity style={styles.button} onPress={() => inputDigit('1')}><Text style={styles.buttonText}>1</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => inputDigit('2')}><Text style={styles.buttonText}>2</Text></TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => inputDigit('3')}><Text style={styles.buttonText}>3</Text></TouchableOpacity>
+            <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={() => performOperation('+')}>
+              <Text style={[styles.buttonText, styles.operatorButtonText]}>+</Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Row 5 */}
+          <View style={styles.row}>
+            <TouchableOpacity style={[styles.button, styles.zeroButton]} onPress={() => inputDigit('0')}>
+              <Text style={[styles.buttonText, styles.zeroButtonText]}>0</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={inputDecimal}><Text style={styles.buttonText}>.</Text></TouchableOpacity>
+            <TouchableOpacity style={[styles.button, styles.operatorButton]} onPress={handleEquals}>
+              <Text style={[styles.buttonText, styles.operatorButtonText]}>=</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </SafeAreaView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
